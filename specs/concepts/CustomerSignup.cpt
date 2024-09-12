@@ -1,0 +1,3 @@
+# Sign up a new customer with name <name> email <email> and <password>
+* Sign up as <name> with email <email> and <password>
+* Display a message "Thank you for signing up! You are now logged in."
