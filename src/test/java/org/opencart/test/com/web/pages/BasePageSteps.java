@@ -5,7 +5,7 @@ import com.thoughtworks.gauge.Step;
 import org.opencart.main.com.web.pages.BasePage;
 
 public class BasePageSteps {
- BasePage basePage = new BasePage();
+    BasePage basePage = new BasePage();
 
     @Step("Launch the application URL")
     public void launchTheApplication() {

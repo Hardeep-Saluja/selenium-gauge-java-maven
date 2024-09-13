@@ -6,4 +6,4 @@
 
 tags: sign-up, customer, Test
 
-* Sign up a new customer with name "Contra" email "Contra@opencart.com" and "passwordContra"
+* Sign up a new customer with name "Ninja" email "Ninja.Turtles.123@opencart.com" and "Ninja.Turtles"

@@ -8,52 +8,57 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.Random;
 
-public class CommonUtils extends Driver{
+public class CommonUtils extends Driver {
 
-    public static String getMessage(WebElement element){
+    public static String getMessage(WebElement element) {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(element));
         return element.getText();
     }
 
-    public static void clickButton(WebElement element){
+    public static String getValue(WebElement element) {
+        new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(element));
+        return element.getAttribute("value");
+    }
+
+    public static void clickButton(WebElement element) {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(element));
         element.click();
     }
 
-    public static void enterTextInTextBox(WebElement element, String txt){
+    public static void enterTextInTextBox(WebElement element, String txt) {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(element));
-        if(element.isEnabled()){
+        if (element.isEnabled()) {
             element.click();
             element.clear();
             element.sendKeys(txt);
-        }else{
+        } else {
             System.out.println("Element is NOT enabled");
         }
     }
 
-    public static void enterDigitsInTextBox(WebElement element, int digit){
+    public static void enterDigitsInTextBox(WebElement element, int digit) {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(element));
-        if(element.isEnabled()){
+        if (element.isEnabled()) {
             element.click();
             element.sendKeys(Keys.CONTROL + "a");
             element.sendKeys(Keys.DELETE);
             element.sendKeys(String.valueOf(generateRandomDigits(digit)));
-        }else{
+        } else {
             System.out.println("Element is NOT enabled");
         }
     }
 
-    public static void selectCheckBox(WebElement element){
+    public static void selectCheckBox(WebElement element) {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(element));
-        if(!element.isSelected()){
+        if (!element.isSelected()) {
             element.click();
-        }else{
+        } else {
             System.out.println("Element is NOT enabled");
         }
     }
 
-    public static int generateRandomDigits(int n){
-        int m = (int) Math.pow(10, n-1);
-        return m + new Random().nextInt(9*m);
+    public static int generateRandomDigits(int n) {
+        int m = (int) Math.pow(10, n - 1);
+        return m + new Random().nextInt(9 * m);
     }
 }

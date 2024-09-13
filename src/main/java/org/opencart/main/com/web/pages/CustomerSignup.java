@@ -4,14 +4,20 @@ import com.thoughtworks.gauge.Table;
 import com.thoughtworks.gauge.TableRow;
 import org.junit.Assert;
 import org.opencart.main.com.utils.CommonUtils;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import java.util.List;
+
 public class CustomerSignup extends BasePage {
 
-
+    public static final String SIGN_UP_SUCCESS_MSG = "Your Account Has Been Created!\n" +
+            "Congratulations! Your new account has been successfully created!\n" +
+            "You can now take advantage of member privileges to enhance your online shopping experience with us.\n" +
+            "If you have ANY questions about the operation of this online shop, please e-mail the store owner.\n" +
+            "A confirmation has been sent to the provided e-mail address. If you have not received it within the hour, please contact us.\n" +
+            "Continue";
     @FindBy(xpath = "//a[@title='My Account']")
     public WebElement linkMyAccount;
     @FindBy(xpath = "//ul[@class='dropdown-menu dropdown-menu-right']/li/a[contains(text(),'Register')]")
@@ -36,15 +42,14 @@ public class CustomerSignup extends BasePage {
     private WebElement chkBxPrivacyPolicy;
     @FindBy(xpath = "//input[@type ='submit'][@value='Continue']")
     private WebElement btnContinue;
+    @FindBy(xpath = "//div[@class='text-danger']")
+    private List<WebElement> listErrorMessages;
     @FindBy(xpath = "//div[@id='content']")
     private WebElement txtSuccessMsg;
+    @FindBy(xpath = "//div[@class='alert alert-danger alert-dismissible']")
+    private WebElement txtWarningMsg;
     @FindBy(css = ".table-responsive:nth-child(1) tbody tr:nth-child(3)")
     private WebElement tableRecord;
-    public static final String SIGN_UP_SUCCESS_MSG = "Your Account Has Been Created!\n" +
-            "Congratulations! Your new account has been successfully created!\n" +
-            "You can now take advantage of member privileges to enhance your online shopping experience with us.\n" +
-            "If you have ANY questions about the operation of this online shop, please e-mail the store owner.\n" +
-            "A confirmation has been sent to the provided e-mail address. If you have not received it within the hour, please contact us.";
 
     public void registerCustomerWith(Table table) {
         for (TableRow row : table.getTableRows()) {
@@ -58,7 +63,7 @@ public class CustomerSignup extends BasePage {
             CommonUtils.enterTextInTextBox(confirmPasswordField, row.getCell("PASSWORD"));
             CommonUtils.selectCheckBox(chkBxPrivacyPolicy);
             CommonUtils.clickButton(btnContinue);
-            Assert.assertEquals("SUCCESS MESSAGE IS NOT AS EXPECTED", SIGN_UP_SUCCESS_MSG, CommonUtils.getMessage(txtSuccessMsg));
+            assertSignUpSuccessMsg();
         }
     }
 
@@ -73,6 +78,10 @@ public class CustomerSignup extends BasePage {
         CommonUtils.enterTextInTextBox(confirmPasswordField, password);
         CommonUtils.selectCheckBox(chkBxPrivacyPolicy);
         CommonUtils.clickButton(btnContinue);
-        //Assert.assertEquals("SUCCESS MESSAGE IS NOT AS EXPECTED", SIGN_UP_SUCCESS_MSG, CommonUtils.getMessage(txtSuccessMsg));
+        assertSignUpSuccessMsg();
+    }
+
+    public void assertSignUpSuccessMsg() {
+        Assert.assertEquals("SUCCESS MESSAGE IS NOT AS EXPECTED: ", SIGN_UP_SUCCESS_MSG, CommonUtils.getMessage(txtSuccessMsg));
     }
 }
