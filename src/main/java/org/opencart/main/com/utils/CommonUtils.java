@@ -5,10 +5,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
+import java.util.Date;
 import java.util.Random;
+import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class CommonUtils extends Driver {
+
+    private static final Logger logger = Logger.getLogger(Driver.class.getName());
 
     public static String getMessage(WebElement element) {
         new WebDriverWait(driver, Duration.ofSeconds(5)).until(ExpectedConditions.visibilityOf(element));
@@ -32,7 +40,7 @@ public class CommonUtils extends Driver {
             element.clear();
             element.sendKeys(txt);
         } else {
-            System.out.println("Element is NOT enabled");
+            logger.info("Element is NOT enabled");
         }
     }
 
@@ -44,7 +52,7 @@ public class CommonUtils extends Driver {
             element.sendKeys(Keys.DELETE);
             element.sendKeys(String.valueOf(generateRandomDigits(digit)));
         } else {
-            System.out.println("Element is NOT enabled");
+            logger.info("Element is NOT enabled");
         }
     }
 
@@ -53,12 +61,26 @@ public class CommonUtils extends Driver {
         if (!element.isSelected()) {
             element.click();
         } else {
-            System.out.println("Element is NOT enabled");
+            logger.info("Element is NOT enabled");
         }
     }
 
     public static int generateRandomDigits(int n) {
         int m = (int) Math.pow(10, n - 1);
         return m + new Random().nextInt(9 * m);
+    }
+
+    public static void pauseFor(Integer milliseconds) {
+        try {
+            TimeUnit.MILLISECONDS.sleep(milliseconds);
+        } catch (InterruptedException e) {
+            logger.info(e.getMessage());
+        }
+    }
+
+    public static String getDateTime(String format) {
+        DateFormat date = new SimpleDateFormat(format);
+        date.setTimeZone(TimeZone.getTimeZone("GMT"));
+        return date.format(new Date());
     }
 }

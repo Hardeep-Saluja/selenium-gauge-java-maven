@@ -1,11 +1,11 @@
 target/
-.gauge/
+*.gauge/
 reports/
 out/
 logs/
 gauge_bin/
 libs/
-.idea
+*.idea/
 .gradle/
 *.iml
 build/

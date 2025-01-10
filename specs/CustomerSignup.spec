@@ -4,6 +4,6 @@
 
 ## Customer Sign-up
 
-tags: sign-up, customer, Test
+Tags: sign-up, customer, Test
 
-* Sign up a new customer with name "Ninja" email "Ninja.Turtles.123@opencart.com" and "Ninja.Turtles"
+* Sign up a new customer with first name as "Ninja", last name as "Turtles" with "Ninja.Turtles.12345!"

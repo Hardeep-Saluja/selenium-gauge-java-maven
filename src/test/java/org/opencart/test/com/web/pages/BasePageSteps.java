@@ -1,6 +1,5 @@
 package org.opencart.test.com.web.pages;
 
-
 import com.thoughtworks.gauge.Step;
 import org.opencart.main.com.web.pages.BasePage;
 

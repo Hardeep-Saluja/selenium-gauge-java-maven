@@ -55,9 +55,9 @@ public class CustomerSignup extends BasePage {
         for (TableRow row : table.getTableRows()) {
             CommonUtils.clickButton(linkMyAccount);
             CommonUtils.clickButton(linkRegister);
-            CommonUtils.enterTextInTextBox(firstNameField, row.getCell("FIRST NAME"));
-            CommonUtils.enterTextInTextBox(lastNameField, row.getCell("LAST NAME"));
-            CommonUtils.enterTextInTextBox(emailId, row.getCell("EMAIL ID"));
+            CommonUtils.enterTextInTextBox(firstNameField, row.getCell("FIRST NAME") + CommonUtils.getDateTime("ddMMYYYYhhmmss"));
+            CommonUtils.enterTextInTextBox(lastNameField, row.getCell("LAST NAME") + CommonUtils.getDateTime("ddMMYYYYhhmmss"));
+            CommonUtils.enterTextInTextBox(emailId, row.getCell("EMAIL ID PREFIX") + CommonUtils.getDateTime("ddMMYYYYhhmmss") + row.getCell("EMAIL ID DOMAIN"));
             CommonUtils.enterDigitsInTextBox(inputTelephoneNum, 10);
             CommonUtils.enterTextInTextBox(passwordField, row.getCell("PASSWORD"));
             CommonUtils.enterTextInTextBox(confirmPasswordField, row.getCell("PASSWORD"));
@@ -67,12 +67,12 @@ public class CustomerSignup extends BasePage {
         }
     }
 
-    public void registerCustomerWith(String customer, String email, String password) {
+    public void registerCustomerWith(String fname, String lname, String password) {
         CommonUtils.clickButton(linkMyAccount);
         CommonUtils.clickButton(linkRegister);
-        CommonUtils.enterTextInTextBox(firstNameField, customer.toUpperCase() + " FIRST NAME");
-        CommonUtils.enterTextInTextBox(lastNameField, customer.toUpperCase() + " LAST NAME");
-        CommonUtils.enterTextInTextBox(emailId, email);
+        CommonUtils.enterTextInTextBox(firstNameField, fname.toUpperCase() + CommonUtils.getDateTime("ddMMYYYYhhmmss"));
+        CommonUtils.enterTextInTextBox(lastNameField, lname.toUpperCase() + CommonUtils.getDateTime("ddMMYYYYhhmmss"));
+        CommonUtils.enterTextInTextBox(emailId, System.getenv("EMAIL_PREFIX") + CommonUtils.getDateTime("ddMMYYYYhhmmss") + System.getenv("EMAIL_DOMAIN"));
         CommonUtils.enterDigitsInTextBox(inputTelephoneNum, 10);
         CommonUtils.enterTextInTextBox(passwordField, password);
         CommonUtils.enterTextInTextBox(confirmPasswordField, password);
